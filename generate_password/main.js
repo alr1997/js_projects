@@ -62,11 +62,6 @@ function generate(event){
     }
     pass.innerHTML=str;
     div.appendChild(pass)
-
-//****** Testing posisions ********//
-
-console.log(password);
-
 }
 
 function takeIt(num){
@@ -78,8 +73,6 @@ function takeIt(num){
 //more simple way could be generate password from the beggining, but i was thinking that changing random character from the password could be more quick
 
 function test(str){
-    console.log(str);
-
     let num=false,up=false,low=false,spec=false, all=false;
     for(let i=0;i<str.length;i++){
         if(numbers.includes(str[i])){
@@ -98,23 +91,18 @@ function test(str){
 
     if(num===false){
         str=changeString(str, takeIt(str.length), numbers[takeIt(numbers.length)]);
-        console.log("Number miss");
         str=test(str);
     }else if(up===false){
         str=changeString(str, takeIt(str.length), uppercase[takeIt(uppercase.length)]);
-        console.log("uppercase miss");
         str=test(str);
     }else if(low===false){
         str=changeString(str, takeIt(str.length), lowercase[takeIt(lowercase.length)]);
-        console.log("lowercase miss");
         str=test(str);
     }else if(spec===false){
         str=changeString(str, takeIt(str.length), special[takeIt(special.length)]);
-        console.log("special miss");
         str=test(str);
     }else if(position>0){
         str=changeString(str, takeIt(str.length), chars[takeIt(chars.length)]);
-        console.log("at some position we have the same char");
         str=test(str);
     }
 
@@ -123,8 +111,6 @@ function test(str){
 
 function changeString(str,index,letter){
 new_str="";
-    console.log(index);
-    console.log(letter);
 for(let i=0;i<str.length;i++){
     if(index===i){
         new_str+=letter;
@@ -136,11 +122,12 @@ return new_str;
 }
 
 function test_position(pass){
+    console.log(pass);
 for(let j=0;j<12;j++){
     for (let i=0; i<4;i++){
         for(let k=3; k>i;k--){
+            console.log("j= "+j+",i= "+i+",k = "+k);
             if (pass[i].length<=j || pass[k].length<=j){
-                console.log("pass");
                 continue;
             }
 
@@ -149,21 +136,20 @@ for(let j=0;j<12;j++){
             if (pass[i][j]===pass[k][j]){
                 if(numbers.includes(pass[k][j])){
                     pass[k]=changeString(pass[k],j,numbers[takeIt(numbers.length)]);
-                    console.log("changed");
                 }else if(uppercase.includes(pass[k][j])){
                     pass[k]=changeString(pass[k],j,uppercase[takeIt(uppercase.length)]);
-                    console.log("changed");
                 }else if(lowercase.includes(pass[k][j])){
                     pass[k]=changeString(pass[k],j,lowercase[takeIt(lowercase.length)]);
-                    console.log("changed");
                 }else if(special.includes(pass[k][j])){
                     pass[k]=changeString(pass[k],j,special[takeIt(special.length)]);
-                    console.log("changed");
                 }
-                k=3;
+                console.log("changed");
+                k=4; //becouse of for loop, at the end of the loop k--
+                i=0; //becouse we start this loop from the beggining
             }
         }
     }
 }
+    console.log(pass);
     return pass;
 }
